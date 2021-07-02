@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	
+<script>
+	
+	const array = ["0","1","2","3","4"];//5
+
+	array[10] = "Valor agregado";
+	for (let i = 0 ; i < array.length ; i++){
+		console.log(array[i])
+	}
+
+	array.forEach( (valor, indice) => {
+		console.log(valor)
+	} )
+/*
+	personas.forEach( persona => {
+
+	} )
+
+
+superArray.forEach( array => {
+	array.forEach( valor => {
+
+	} )
+} )
+*/
+
+	const objeto = {
+		nombre: "Carlos", 
+		apellido: "Sanchez",
+		edad: 54
+	}
+
+	for (indice in objeto) {
+		//console.log( `Valor en el indice ${indice}: ${objeto[indice]}`)
+		console.log( objeto[indice] )
+	}
+	/*
+	//Diversas notaciones o sintaxis
+	//sintaxis de punto -> sirve solo para indices asociativos, no sirve para indices numericos
+	objeto.nombre
+	objeto.apellido
+	objeto.edad 
+	//objeto.1  NO SE PUEDE
+
+	let indice = "nombre";
+	//objeto.indice //No funciona, busca en el objeto un indice con ese nombre
+
+	//sintaxis de corchetes -> sirve tanto para indices asociativos como para numericos
+	objeto["nombre"]//Busca un indice tipo string con ese valor
+	objeto["apellido"]
+	objeto[1]//Busca un indice tipo number con ese valor
+
+	objeto[indice]//Busca un indice segun el valor guardado en la variable
+	*/
+</script>
+</body>
+</html>

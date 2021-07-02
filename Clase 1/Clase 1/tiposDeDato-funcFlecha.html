@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>Tipos de dato</h1>
+
+<script>
+	/*Tipos de dato*/
+	let variable;
+	//Datos primitivos
+	variable = "string" // String  cadenad e caracteres
+	variable = 123 //Number  numericos
+	variable = true //false  booleanos
+
+	variable = null //Lo asignamos desde el codigo, cuando queremos "destruir" el valor de una variable
+	variable = undefined //Lo asigna el navegador cuando una variable o algun indice dentro de un objeto/array no tiene valor
+
+	//Datos objetos
+	//Ambos son una coleccion de datos. 
+	variable = ["Argentina", "Uruguay", "Brasil", "Chile"];//Array posee indices numericos ordenados crecientes
+	variable = {nombre: "Pedro", apellido: "Sanchez"}//Objeto posee indices asociativos(string)
+
+	variable = function (){
+		console.log("Las funciones tambien son datos en JS")
+	}
+	//NaN  RegExp
+
+	//Funciones
+	/*
+	function miFuncion (){
+		console.log("Hola");
+	}
+
+	var miFuncion = function (){
+		//.....
+	}
+
+	window.miFuncion()
+	*/
+	const miFuncion = function (){
+		alert("Hola")
+	}
+
+	//miFuncion();
+	//Funciones Flecha   function  =>
+
+	let miFuncion2 = (string) => {
+		alert(string)
+	}
+
+//  Cant de parametros
+	//Mas de un parametro -> lleva parentesis
+	miFuncion2 = (parametro1, parametro2) => {
+		//...
+	}
+
+	//Solo un parametro -> NO lleva parentesis
+	miFuncion2 = parametro1 => {
+		//...
+	}
+
+	//Sin parametros -> SI lleva parentesis
+	miFuncion2 = () => {
+		//...
+	}
+
+//Cant de codigo a ejecutar
+	//Mas de una linea -> SI lleva llaves
+		miFuncion2 = () => {
+			//...
+			//...
+		}
+
+	//Una sola linea -> NO lleva llaves
+		miFuncion2 = () => console.log("....")
+
+	//Si esa linea es un return -> evito usar la palabra return
+		miFuncion2 = (num) =>  num*2
+</script>
+</body>
+</html>

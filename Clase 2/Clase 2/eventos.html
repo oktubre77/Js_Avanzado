@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1 onclick="console.log('Hiciste Click al titulo!')">Eventos</h1>
+
+	<input type="text">
+<script>
+
+	/*Objetos -> Cosas -> caracteristicas (propiedades) y funcionalidades (metodos)
+
+	PROPIEDADES
+		telefono.color = "negro"
+		telefono.ancho = 6
+		telefono.gps = true
+		telefono.bandas = ["3g", "4g"]
+		telefono.bateria.amp = 2.5
+		telefono.so.nombre = "android"
+		telefono.so.version = "4.2.5"
+		
+	METODOS
+		telefono.llamar(11222333444)
+		telefono.encender()
+		telefono.desbloquear(1234)
+		window.document.write()
+	*/
+	/*
+	const persona = {
+		//prop
+		nombre: "Pedro",
+		apellido: "Sanchez",
+		//met
+		saludar : function () {
+			console.log(`Hola soy ${this.nombre} ${this.apellido}`)
+			console.log("Hola soy "+this.nombre+" "+this.apellido)
+		}
+
+	}
+
+	persona.saludar = function (){}
+	*/
+	//Problema -> al usar los eventos como metodos del objeto solo puedo registrar una funcion por cada evento. De asignarle mas de una, solo se ejecutara la ultima escrita
+
+	const titulo = document.querySelector("h1")
+	console.dir(titulo)
+
+	titulo.onclick = function (){
+		//alert("Hola!")
+		this.style.backgroundColor = "green"
+	}
+	
+
+	//Accion que desencadena un llamado al metodo -> ej , al hacer click en un elemento el navegador llama a ese metodo titulo.onclick()
+
+
+	/*
+	titulo.addEventListener( "click", ()=>{
+		console.log("click1");
+	} )
+
+	titulo.addEventListener( "click", ()=>{
+		console.log("click2");
+	} )
+
+	titulo.addEventListener( "click", ()=>{
+		console.log("click3");
+	} )
+	*/
+
+	const input = document.querySelector("input")
+	/*
+	input.addEventListener("focus", () => {
+		console.log("Entraste al input")
+	})
+
+	input.addEventListener("blur", () => {
+		console.log("Saliste del input")
+	})
+
+	input.addEventListener("change", () => {
+		console.log("Cambiste el input")
+	})
+	*/
+	// keydown  keypress  keyup
+	/*
+	input.addEventListener("keyup", () => {
+		//console.log("Presionaste la tecla")
+		input.value = input.value.toUpperCase()//Pasa el texto a mayus
+		console.log(input.value, input.value.length)
+	})
+	*/
+
+
+</script>
+</body>
+</html>

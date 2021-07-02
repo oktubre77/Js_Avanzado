@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>Programacion Orientada a Prototipos  (se parece a OOP)</h1>
+	<p></p>
+
+
+<script>
+	//Los datos tienen prop y metodos como los objetos
+	const string = "asdasd"
+	const array = [0,1,2,3,4,5]
+
+	const objeto = {x:1 , y:2}
+
+	//Todos los objetos tienen un mismo prototipo en el cual se almacenan los metodos y propiedades compartidas por ellos
+
+	const fecha = new Date()
+
+	//Se puede entender esto como herencia -> Es decir, los objetos "instanciados" poseen los metodos de su Clase
+
+	const prototipo = {a: 10, b: 20}
+	const derivado = Object.create( prototipo )
+
+	derivado.a //10 Por que no encontrar este indice en el propio objeto lo va a buscar en su prototipo
+
+	derivado.a = 30 ;//Cambia el valor el objeto derivado, pero no modifica al prototipo. Si borrara este valor y buscara derivado.a volveria a buscar en el proto
+
+	prototipo.b = 50 //Todo lo que yo modifique en el objeto prototipo se vera reflejado en el objeto derivado
+
+	console.log("proto", prototipo)
+	console.log("derivado", derivado)
+
+	/*Tienen la plantilla del objeto generico
+	const objeto2 = {}
+	const objeto2 = new Object 
+	*/
+	//Crear un objeto sin ningun prototipo
+	const objeto2 = Object.create( null )
+
+	//Puedo configurar en un objeto si se puede editar, borrar, iterar
+	const objetoConf = Object.create( Object.prototype, {
+		nombre: {
+			value: "Carlos",
+			configurable: false, //Borrar???
+			writable: true, //Editar???
+			enumerable: true //Iterar???
+		},
+		apellido: {
+			value: "Sanchez",
+			configurable: false, //Borrar???
+			writable: true, //Editar???
+			enumerable: true //Iterar???
+		},
+		saludar: {
+			value: function() {
+				console.log("Hola!")
+			}, 
+			configurable: false,
+			writable: false,
+			enumerable: false
+		}
+	} )
+	/*
+	const ejemplo = {
+		indice1: "valor1",
+		indice2: "valor2",
+		metodo: function (){
+			console.log("hola")
+		}
+	}
+	for (indice in ejemplo) {
+		console.log(ejemplo[indice])
+	}
+	*/
+
+	//Getters y Setters -> son funciones pero que se llama como si fueran propiedades
+	const cuadrado = {
+		alto: 15,
+		ancho: 25,
+		getArea: function (){
+			return this.alto * this.ancho
+		},
+
+		get area () {
+			return this.alto * this.ancho
+		},
+
+		aumentarTamaño: function (numero){
+			this.alto += numero;
+			this.ancho += numero;
+		},
+
+		set aumentar (numero){
+			this.alto += numero;
+			this.ancho += numero;
+		}
+	}
+</script>
+</body>
+</html>

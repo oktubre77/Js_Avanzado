@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1 onclick="alert('Hola!')">JS Avanzado</h1>
+
+<script src="script.js"></script>
+<script>
+	//alert("Hola, este codigo es interno!");
+
+	//Creacion de Variables
+	var a = "valorVar"; //Guarda la varaible como propiedad del objeto Global Window
+
+
+	//Las variables declaradas con let y const son locales -> es decir, no existen fuera del bloque de codigo en que fueron creadas
+	let ab = "valorLet"; //Permite modificar el valor, no se almacena en Window
+
+	const aa = "valorConst";//No permite modificar el valor, no se almacena en Window
+	//aa = "Nuevo valor" //No se puede reasignar un valor 
+
+	const objeto = {nombre: "Pedro", apellido:"Sanchez"} //Si bien no puedo cambiar el valor de una constante. Cuando lo que almacena es un objeto, puedo modificar (tambien agregar) sus propiedades internas
+
+
+	if (true){
+		let variable = "Hola";
+		console.log(variable)
+	}
+	console.log(variable)
+
+	let variable = "valor";
+	let variable = "otro valor"
+	//No puedo redeclarar una varaible con let
+
+	//BOM -> Browser Object Model -> Es una API Global 
+	//DOM -> Document Object Model -> Es una API, dentro de la API global de Window
+	//window.alert()
+
+
+	//Debilmente tipado -> puedo cambiar el tipo de dato a una variable
+
+	/*
+		JS  ->  leng interpretado 
+		Navegador  ->  leng compilado
+		Sist Op
+		Leng Maquina
+	*/
+
+
+</script>
+</body>
+</html>

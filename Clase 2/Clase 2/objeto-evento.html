@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<style>
+		.fondo-verde{
+			background-color: lightgreen
+		}
+
+		#propagacion>div{
+			background-color: pink;
+			height: 300px;
+			width: 300px;
+		}
+
+		#propagacion>div>div{
+			background-color: lightgreen;
+			height: 200px;
+			width: 200px;
+		}
+
+		#propagacion>div>div>div{
+			background-color: lightblue;
+			height: 100px;
+			width: 100px;
+		}
+
+	</style>
+</head>
+<body>
+	<h1>Objeto Evento</h1>
+
+	<section id="propagacion">
+		<div>
+			Padre
+			<div>
+				Hijo
+				<div>
+					Nieto
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+	<section id="default">
+		<a href="http://google.com">Google</a>
+
+		<form action="">
+			<input type="text">
+			<button type="submit">Enviar</button>
+		</form>
+	</section>
+<script>
+	const titulo = document.querySelector("h1")
+
+	titulo.addEventListener("mouseover", ev => {
+		//titulo == ev.target
+		//console.log(ev.target);
+		//ev.target.style.backgroundColor = "lightgreen"
+		ev.target.classList.add("fondo-verde");
+	} )
+
+	//PROPAGACION
+
+	/*
+	Existe dos formas de propagacion:
+		burbujeo -> Desde el elemento interno hacia los contenedores
+		captura -> Desde los contenedores hacia el elemento interno*/
+	const section = document.querySelector("#propagacion");
+	const padre = section.children[0]
+	const hijo = padre.children[0]
+	const nieto = hijo.children[0]
+	//console.dir(section)
+
+	padre.addEventListener("click", ev => {
+		console.log("Padre");
+		ev.stopPropagation();
+		//console.log(ev)
+		//ev.target === padre
+	})
+
+	hijo.addEventListener("click", ev => {
+		console.log("Hijo");
+		ev.stopPropagation();
+	})
+
+	nieto.addEventListener("click", ev => {
+		console.log("Nieto");
+		ev.stopPropagation();
+	})
+
+	//PreventDefault()
+	// los hipervinculos (a) -> redirigen a un recurso
+	// los formularios -> evento de submit y reset
+	document.querySelector("a").addEventListener("click", ev => {
+		ev.preventDefault();
+		ev.stopPropagation();
+	} )
+
+	document.querySelector("form").addEventListener("submit", ev => {
+		ev.preventDefault();
+	} )
+</script>
+</body>
+</html>		

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>AJAX ->  XML y JS Asincronico</h1>
+	<p>Asincronico -> Diferente tiempo  -->  En programacion diriamos que es diferente el tiempo en el cual se llama a una funcion y el tiempo en el que obtenemos la respuesta</p>
+
+	<p>Bloquente -> El siguiente codigo no se ejecuta hasta que no se haya resuelto el pedido asincronico</p>
+
+	<button id="btn">Pedir Archivo</button>
+<script>
+	/*
+	setTimeout(() => {
+		console.log("Hola, soy un mensaje asincronico")
+	}, 1000)
+
+
+	console.log("Hola, soy un mensaje sincronico")
+	*/
+
+	//Para las peticiones AJAX Existe un objeto llamado XMLHttpRequest()
+
+document.querySelector("#btn").addEventListener("click", ev =>{
+
+	const peticion = new XMLHttpRequest();
+
+	peticion.addEventListener("readystatechange", ev => {
+		console.log("Hubo un cambio en el estado del objeto", peticion.readyState)
+
+		if(peticion.readyState == 4){//Equivale al evento de load
+			/*
+			console.log(peticion.status, peticion.statusText)
+			if(peticion.status == 200){
+				console.log("Puedo usar el response")
+				console.log(peticion.response)
+				//document.write(`<h3>${peticion.response}</h3>`)
+				const h3 = document.createElement("h3")
+				h3.innerText = peticion.response;
+				document.body.appendChild(h3)
+			}
+			*/
+		}
+	})
+
+	peticion.addEventListener("load", ev=> {//Se dispara cuando el readyState es 4
+		if(peticion.status == 200){
+				console.log("Puedo usar el response")
+				console.log(peticion.response)
+				//document.write(`<h3>${peticion.response}</h3>`)
+				const h3 = document.createElement("h3")
+				h3.innerText = peticion.response;
+				h3.id = "titulo"
+				document.body.appendChild(h3)
+			}
+	})
+
+	peticion.open("GET", "texto.txt")
+
+	peticion.send();
+})
+
+	
+	/*
+		.readyState
+
+			0 -> Objeto creado
+			1 -> Objeto configurado
+			2 -> Intercambio de Headers
+			3 -> proceso de descarga
+			4 -> Finalizacion de la peticion //Es en este punto en el que debo acceder al response
+	*/
+
+</script>	
+</body>
+</html>
+	
+Ejercicio: generar un HTML con un boton, el cual a apretarlo pedira un archivo .html El contenido de ese archivo los mostrara en el section#salida		
+		      
+
+
+
+				
+
+
+
+
+
+
+
+
+		

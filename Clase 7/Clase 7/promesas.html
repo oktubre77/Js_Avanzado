@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>Promesas</h1>
+
+
+<script>
+
+	//Callback Hell
+	/*
+	const peticion1 = new XMLHttpRequest()
+	peticion1.responseType = "json"
+	peticion1.open("GET", "https://jsonplaceholder.typicode.com/users")
+	peticion1.send()
+
+	peticion1.addEventListener("load", ev => {
+		const arrayUsers = ev.currentTarget.response
+		const user = arrayUsers[4]
+		const userId = user.id
+
+		const peticion2 = new XMLHttpRequest()
+		peticion2.responseType = "json"
+		peticion2.open("GET", "https://jsonplaceholder.typicode.com/posts?userId="+userId)
+		peticion2.send()
+
+		peticion2.addEventListener("load", ev => {
+			const arrayPosts = ev.currentTarget.response
+
+			//PROBLEMA -> Debo anidar las peticiones, por lo que se genera un codigo piramidal llamado Callback Hell
+
+		})
+	})
+	*/
+
+
+	/*async*/ function ajax ()  {//Esta funcion es sincronica
+		const peticion = new XMLHttpRequest(); //La peticion es asincronica
+
+		peticion.open("GET", "https://jsonplaceholder.typicode.com/users")
+		peticion.send()
+
+		peticion.addEventListener("load", ev => {
+			return ev.currentTarget.response
+		})
+	}
+
+
+	let response = /*await*/ ajax()
+
+	//console.log(response)//response d ela peticion / Usuarios / error / undefined / null
+
+	//PROMESAS -> Es un valor que puede aparecer en el futuro o no
+
+	//const promesa = new Promise ( (resolver, rechazar) => {} )
+	/*
+	const promesa = new Promise ( (resolver, rechazar) => {
+		resolver(parametroResolver)// -> LLamo a resolver si todo sale bien
+		rechazar(parametroRechazar)// -> Llamo a rechazar cuando hay algun error
+	} )
+
+	promesa
+		.then(/*En caso de que dentro de la promesa se llame a resolver(), se va a ejecutar el then)  
+		.catch(/*En caso de que dentro de la promesa se llame a rechazar(), se va a ejecutar el catch)
+	*/
+
+	const promesa = new Promise ( ( res, rej ) => {
+		setTimeout( ()=>{
+			rej("Cod. de error 5442")
+			res("Todo salio OK")
+		}, 1000 )
+	} )
+
+	promesa
+		.then( parametro => {
+			//console.log("Salida exitosa!"+parametro)
+		} )
+		.catch( error => {
+			//console.warn(`Error en la promesa: ${error}`)
+		} )
+
+
+
+	// Promesa de una peticion AJAX
+
+	const promesa2 = new Promise (  (res, rej) => {
+		const peticion = new XMLHttpRequest ()
+		peticion.responseType = "json"
+		peticion.open("GET", "https://jsonplaceholder.typicode.com/users")
+		peticion.send()
+
+		peticion.addEventListener("load", ev => {
+			if(ev.currentTarget.status == 200){
+				res(ev.currentTarget.response)
+			}else{
+				rej(`Cod. ${ev.currentTarget.status}`)//"Cod. 404"
+			}
+		})
+
+	}  )
+
+	console.log(promesa2)
+	promesa2
+		.then( response => {
+			console.log(response)
+		} )
+		.catch( error => {
+			console.warn(`Error ${error}`)
+		} )
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1 class="titulo" id="tituloPrincipal">Acceso al DOM</h1>
+
+	<section id="prueba">
+		<article>
+			<h2>1</h2>
+		</article>
+		<article>
+			<h2>2</h2>
+		</article>
+		<article>
+			<h2>3</h2>
+		</article>
+		<article>
+			<h2 id="ultimoH2" class="titulo tituloSecundario">4</h2>
+		</article>
+	</section>
+
+	<input type="text">
+<script>
+	const h1 = document.getElementById("tituloPrincipal");//Unico elemento
+	//const h1 = document.getElementsByClassName("titulo");//Array
+	//const h1 = document.getElementsByTagName("h1");//Array
+
+	//const h2 = document.getElementById("prueba").getElementsByTagName("article")[0].getElementsByTagName("h2")
+
+	//const h2 = document.querySelector("section article h2");
+	//const h2 = document.querySelector("#prueba article:last-child h2");
+	const h2 = document.querySelector("#ultimoH2");
+	h2.innerText//Texto plano de una etiqueta
+	h2.innerHTML//Texto que lee las etiquetas hijo
+
+	h2.classList// API para el manejo de las clases
+	h2.classList.add("NuevaClase")//Agrega
+	h2.classList.remove("NuevaClase")//Borra
+	console.dir(h2)
+
+
+	document.querySelector("input").value //Nos permite acceder a lo que el usuario escribio en el input
+</script>
+</body>
+</html>

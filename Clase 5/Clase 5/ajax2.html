@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AJAX - Evaluacion de headers</title>
+</head>
+<body>
+	<h1>AJAX - Evaluacion de headers</h1>
+
+<script>
+	
+	const peticion = new XMLHttpRequest();
+
+	peticion.addEventListener("readystatechange", ev => {
+		//peticion == ev.currentTarget
+		if( ev.currentTarget.readyState == 2 ){
+			//console.log(ev.currentTarget.getAllResponseHeaders())//Esta metodo trae todos los headers y sus valores
+			//console.log(ev.currentTarget.getResponseHeader("content-length"))//Esta metodo trae el valor del header ingresado
+
+
+			if( ev.currentTarget.getResponseHeader("content-length") > 30){
+				ev.currentTarget.abort();//Aborta le peticion, el objeto vuelve a el estado inicial
+			} 
+		}
+	})
+
+	peticion.addEventListener("abort", ev => {
+		console.warn("La peticion fue abortada...")
+	})
+
+	peticion.open("GET", "texto.txt");
+	peticion.send()
+
+</script>				
+</body>
+</html>

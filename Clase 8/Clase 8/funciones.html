@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>Funciones</h1>
+
+<script>
+
+	//Scoope -> Es al ambito de las variables. Define donde existe un varaible y donde no  /  Una funcion puede usar una variable externa sin hacer nada mas
+	let varGlobal = "Valor global"
+
+	function ejemplo (parametro) {
+		const local = "Valor local"
+		varGlobal = "Modifico el valor de Global"
+
+		varSinConstructor = 50;//Si uso una variable que nunca fue construida se asocia al objeto window
+
+		console.log(varGlobal, local, parametro, varSinConstructor)
+	}
+
+	ejemplo("valorParametro")
+
+
+	//Clousure   //  Use strict  //  Funciones Constructoras -> "clase"
+</script>
+</body>
+</html>

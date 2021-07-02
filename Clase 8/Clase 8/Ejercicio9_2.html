@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejerciocio 9-2      
+    </title>
+    <p>Ejercicio: Generar la clase Persona que contenga nombre, apellido, edad y el motodo saludar el cual diga "Hola, 
+        soy [nombre de la persona]". Tendra el getter de nombreCompleto que retornara el nombre completo de la persona. 
+        Y tendra el setter sumarEdad que suamara a la edad el numero indicado.
+    </p>
+</head>
+<body>
+    <script>
+            class Persona{
+                constructor (nombre,apellido,edad){
+                    this.nombre=nombre,
+                    this.apellido=apellido,
+                    this.edad=edad
+                }
+                saludar(){
+                    return alert(`Hola soy ${this.nombre}`)
+                }
+                get nombreCompleto(){
+                    return (`${this.nombre}---${this.apellido}`)
+                }
+                set sumarEdad(valor){
+                    this.edad += valor
+                }
+            }
+            const persona1 = new Persona ( "German","Mendoza",48)
+            console.log(persona1)
+
+    </script>
+    
+</body>
+</html>

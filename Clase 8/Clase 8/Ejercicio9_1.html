@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejercicio 9</title>
+</head>
+<body>
+    <h1>funciones Constructoras</h1>
+    <p>Las funciones tradicionales pueden ser utilizadas como clases para instanciar objetos</p>
+    <script>
+
+        function Persona (nombre,apellido,edad){
+            this.nombre=nombre,
+            this.apellido=apellido,
+            this.edad=edad
+        }
+        Persona.prototype.saludar = function (){
+            return alert(`Hola soy ${this.nombre}`)
+        }
+
+        const nuevapesona= new Persona ( "german","Mendoza",48)
+    </script>
+</body>
+</html>

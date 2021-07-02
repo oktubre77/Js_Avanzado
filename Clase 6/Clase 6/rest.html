@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>Api REST</h1>
+
+	<p>url.com?idUser=1</p>
+	<p>url.com/users/1</p>
+
+	<p>Metodos
+		<ul>
+			<li>GET -> Pedir info</li>
+			<li>POST -> Crear un registro</li>
+			<li>PUT -> Editar (recargo toda la info)</li>
+			<li>PATCH -> Editar (recargo solo lo que voy a cambiar)</li>
+			<li>DELETE -> Borra</li>
+		</ul>
+	</p>	
+
+	<p>CORS -> Peticiones cruzadas entre servidores</p>
+
+<script>
+	const peticion = new XMLHttpRequest();
+	//Otra forma de trabajo declarar la respuesta esperada del servidor. Esto hace que el propio objeto transforme la respuesta al formato esperado. Al usar responseType por detras se configuran los headers de contentType y acept
+	peticion.responseType = "json"
+
+	peticion.addEventListener("load", ev => {
+		if (ev.currentTarget.status == 200){
+			//console.log(ev.currentTarget)
+			/*
+			Una forma de trabajo es obtener la respuesta en formato texto y parsearla
+							
+			const arrayUser = JSON.parse(ev.currentTarget.response)
+
+			console.log(json)
+			*/
+
+			const arrayUser = ev.currentTarget.response;
+			console.log(arrayUser)
+
+
+			const ul = document.createElement("ul");
+
+			arrayUser.forEach( user => {
+				const li = document.createElement("li")
+				li.innerText = user.company.name
+				ul.append(li)
+			} )			
+
+			document.body.appendChild(ul)
+		}
+	})
+
+	peticion.open("GET", "https://jsonplaceholder.typicode.com/users")
+	peticion.send()
+
+
+</script>
+</body>
+</html>

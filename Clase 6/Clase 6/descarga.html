@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<style>
+		div{
+			width: 60%;
+		}
+
+		div img{
+			width: 100%;
+		}
+
+		#barra{
+			height: 20px;
+			width: 100%;
+			background-color: orange;
+			color: white;
+			text-align: center;
+			transition: width 1.5s;
+		}
+	</style>
+</head>
+<body>
+	<progress></progress>
+	<div id="barra"></div>
+
+	<div class="progress" style="width: 100%;">
+	 	<div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="barraB"></div>
+	</div>
+
+	<h1>Descarga de Archivos</h1>
+
+	<button id="btn">Descargar Imagen</button>
+
+	<div id="salida"></div>
+
+
+<script>
+	
+	document.querySelector("#btn").addEventListener("click" , ev =>{
+		const peticion = new XMLHttpRequest();
+		//Blob es un objeto que representa a un archivo binario grande
+		peticion.responseType = "blob"
+
+		//Evento de Progreso
+		const barra = document.querySelector("#barra")
+		const barraB = document.querySelector("#barraB")
+
+		peticion.addEventListener("progress", ev => {
+			//console.log(ev)
+			//En el evento de progreso tengo dos propieades muy importantes .loaded -> cantidad descargada hasta el momento  y .total -> total de tamaño del archivo
+			const porcentaje = Math.round( ev.loaded * 100 / ev.total )+"%";
+			console.log(`Hubo un progreso en la descarga: ${porcentaje}`)
+
+			barra.style.width = porcentaje;
+			barra.innerText = porcentaje;
+
+			barraB.style.width = porcentaje;
+
+
+			if(porcentaje == "100%"){
+				barra.style.backgroundColor = "green";
+			}
+		})
+
+
+
+
+
+
+		//Evento de carga total
+		peticion.addEventListener("load", ev => {
+			const blob = ev.currentTarget.response;
+			const url = URL.createObjectURL(blob)//Necesito apuntar al archivo que esta en memoria. Para eso, genero una url a partir el objeto blob que lo representa
+
+			/*Armado de la img a mostrar*/
+			const img = document.createElement("img")
+			img.src = url
+			document.querySelector("#salida").appendChild(img)
+
+			/*Armado del link de descarga*/
+			const a = document.createElement("a")
+			a.innerText = "Descarga!"
+			a.href = url 
+			a.target = "_blank"
+			a.download = "barco.jpg"
+			//a.click()
+			//document.querySelector("#salida").insertBefore(a, img)
+		})
+
+		peticion.open("GET", "imagen.jpg")
+		peticion.send();
+	})
+
+</script>
+</body>
+</html>
+
+EJERCICIO 2: Añadir una barra de progreso (puede ser de Bootstrap o no)

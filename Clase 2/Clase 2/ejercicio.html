@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>Ejercicio</h1>
+	<p>Consigna: Generar dos botones, uno que diga light y otro dark. Esos botones cambiaran las propiedades CSS del body. Dark colocara un fondo oscuro y una letra clara, mientras que light hara lo inverso.
+
+	Generar 3 hipervinculos con url diferentes, detener sus comportamientos por defecto. Y mostrar por consola la url a la cual dirigian
+
+	</p>
+
+	<section id="pruebas">
+		<button id="btnLight">Light</button>
+		<button id="btnDark">Dark</button>
+
+		<div>
+			<a href="http://google.com">Google</a>
+			<a href="fb.com">FaceBook</a>
+			<a href="educacionit.com">EduIT</a>
+		</div>
+	</section>
+
+<script>
+/*Hector
+	document.querySelector('section').addEventListener('click', function (e) {
+  console.log('Has hecho click en el enlace');
+  e.preventDefault();
+});
+
+document.getElementById('negro').addEventListener('click', function () {
+  console.log('Has hecho click');
+  document.body.style.background = 'black';
+  document.body.style.color = 'white';
+});
+
+document.getElementById('blanco').addEventListener('click', function () {
+  console.log('Has hecho click');
+  document.body.style.background = '#3CD4FF';
+  document.body.style.color = 'black';
+});
+*/
+
+	const btnDark = document.querySelector("#btnDark");
+
+	document.querySelector("#btnDark").addEventListener("click", ev => {
+		document.body.style.color = "white";
+		document.body.style.backgroundColor = "black"
+	})
+
+	document.querySelector("#btnLight").addEventListener("click", ev => {
+		document.body.style.color = "black";
+		document.body.style.backgroundColor = "white"
+	})
+
+
+	const links = document.querySelectorAll("div a");
+
+	links.forEach( link => {
+		//console.log(link)
+		link.addEventListener("click", ev => {
+			ev.preventDefault();
+			ev.stopPropagation();
+			console.log(ev.target.href);
+		})
+	} )
+
+	//Boton dinamico con evento
+	btn = document.createElement("button");
+	btn.innerText = "Boton JS";
+	btn.addEventListener("click", ev => {
+		console.log("Evento del btn JS");
+	})
+
+	document.querySelector("#pruebas").appendChild(btn);
+</script>
+</body>
+</html>

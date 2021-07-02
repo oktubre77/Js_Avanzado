@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+<style>
+	form{
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 60vh;
+		width: 50vw;
+	}
+
+	input:valid, select:valid{
+		outline: green 1px solid;
+	}
+	input:invalid, select:invalid{
+		outline: red 1px solid;
+	}
+
+	form label {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+	}
+	form label span{
+		color:  red;
+		font-size: 15px;
+	}
+</style>
+</head>
+<body>
+	<h1>Validacion <strong id="especial">A</strong></h1>
+
+	<form id="formulario">
+		<label for="nombre">Nombre <span id="errNombre"></span></label>
+		<input type="text" id="nombre" required minlength="3" >
+
+
+		<label for="apellido">Apellido<span id="errApellido"></span></label>
+		<input type="text" id="apellido" >
+
+		<label for="email">Email<span id="errEmail"></span></label>
+		<input type="text" id="email" >
+
+		<label for="pass">Contraseña<span id="errPass"></span></label>
+		<input type="text" id="pass" >
+
+		<label for="repass">Repetir Contraseña<span id="errRepass"></span></label>
+		<input type="text" id="repass" >
+
+		<label for="zona">Zona<span id="errZona"></span></label>
+		<select id="zona">
+			<option value="" disabled selected>Seleccione la zona...</option>
+			<option value="zn">Norte</option>
+			<option value="zs">Sur</option>
+			<option value="ze">Este</option>
+			<option value="zo">Oeste</option>
+		</select>
+
+		<label for="TyC">Terminos y Condiciones<span id="errTyC"></span></label>
+		<input type="checkbox" id="TyC">
+
+		<button type="sumit">Enviar</button>
+	</form>
+
+<script>
+	const formulario = document.querySelector("#formulario")
+	//console.log(formulario.children)
+
+	const validarNombreApellido = (elemento, span) => {
+		if(elemento.value.length < 3 ){
+			elemento.setCustomValidity("Debe escribir al menos 3 caracteres");
+			span.innerText = "Debe escribir al menos 3 caracteres"
+		}else if(elemento.value.length > 20){
+			elemento.setCustomValidity("Debe escribir 20 caracteres como maximo");
+			span.innerText = "Debe escribir 20 caracteres como maximo"
+		}else{
+			elemento.setCustomValidity("")
+			span.innerText = ""
+		}
+	}
+
+	formulario.nombre.addEventListener("blur", ev =>{
+		const span = document.querySelector("#errNombre")
+		validarNombreApellido(ev.target, span)
+	})
+
+	formulario.apellido.addEventListener("blur", ev =>{
+		const span = document.querySelector("#errApellido")
+		validarNombreApellido(ev.target, span)
+	})
+
+	formulario.zona.addEventListener("change", ev => {
+		//console.log("Cambio en el select", ev.target.value)
+		if(ev.target.value != ""){
+			ev.target.setCustomValidity("")
+		}else{ 
+			ev.target.setCustomValidity("Debe seleccionar una opcion")
+		}
+	})
+
+	//Email -> tiene un @ y solo uno. Tiene texto antes y despues de ese @
+	formulario.email.addEventListener("blur", ev => {
+		const string = ev.target.value;
+		/*
+		//VALIDACION CON BUCLES
+		let cant = 0;
+		let posicion;
+
+		for (let i = 0 ; i < string.length ; i++){
+			//console.log(string[i])
+
+			if(string[i] == "@"){
+				console.log("Encontre un @");
+				cant++;
+				posicion = i;
+			}
+		}
+
+		//console.log(cant, posicion)
+		if(cant == 1){
+			if(posicion== 0 || posicion == string.length -1){
+				//Error en la posicion del @
+				console.log('Error en la posicion del @')
+			}else{
+				//Email correcto
+				console.log('Email correcto')
+			}
+		}else{
+			//error en la cant de @
+				console.log('error en la cant de @')
+		}
+		*/
+		//VALIDACION CON INDEXOF
+		/*
+		const posicion = string.indexOf("@")//3
+		const posicion2 = string.indexOf("@", posicion+1)//Busca otro @ a partir del indice 4
+		if(posicion == -1){
+			console.log("Falta el @")
+		}else if(posicion == 0 || posicion == string.length-1){
+			console.log("@ esta el inicio o al final")
+		}else if(posicion2 != -1){
+			console.log("Hay mas de un @")
+		}else{
+			console.log("Email correcto")
+		}
+		*/
+
+		//VALIDACION CON SPLIT
+		const span = document.querySelector("#errEmail")
+		let mensaje = "";
+
+		const array = string.split("@");
+		if(array.length == 1){
+			mensaje = "Falta el @"
+
+		}else if(array.length > 2){
+			mensaje =  "Hay mas de un @"
+
+		}else if (array.length == 2){
+			mensaje =  "Hay un unico @"
+
+			if(array[0] == "" || array[1] == ""){
+				mensaje = "Falta texto antes o espues del @"
+
+			}else{
+				//console.log("Email Correcto!!!!")
+				mensaje = "";
+			}
+		}
+		ev.target.setCustomValidity(mensaje)
+		span.innerText = mensaje
+		console.log(array)
+	})
+
+	formulario.TyC.addEventListener("click", ev => {
+		//console.dir(ev.target.checked);
+		const span = document.querySelector("#errTyC")
+		if(ev.target.checked){
+			ev.target.setCustomValidity("");
+			span.innerText = ""
+		}else{
+			ev.target.setCustomValidity("Debe aceptar nuestros Terminos y Condiciones");
+			span.innerText = "Debe aceptar nuestros Terminos y Condiciones"
+		}
+	})
+
+
+	formulario.pass.addEventListener("keyup", ev => {
+		const string = ev.target.value
+		for (let i = 0 ; i < string.length ; i++){
+			let cod = string[i].charCodeAt();
+			//console.log( letra.charCodeAt() )
+			if( cod >= 48 &&  cod <= 57 //0-9
+				|| cod >= 65 &&  cod <= 90//A-Z
+				|| cod >= 97 &&  cod <= 122  ){//a-z
+				console.log("Letra OK")
+				ev.target.setCustomValidity("")
+			}else{
+				console.log("Letra error")
+				ev.target.setCustomValidity("Solo se admiten alfanumericos")
+				break;
+			}
+		}
+	})
+
+	formulario.repass.addEventListener("blur", ev => {
+		const pass = formulario.pass;
+		const span = document.querySelector("#errRepass")
+
+		if ( ev.target.value == pass.value){
+			ev.target.setCustomValidity("")
+			span.innerText = ""
+		}else{
+			ev.target.setCustomValidity("Las contraseñas no coinciden")
+			span.innerText = "Las constraseñas no coinciden"
+		}
+	})
+//Validar el repetir contraseña para que coincida con el input de contraseña. Leer en el alumno lo de expresiones regulares
+
+//EXPRESIONES REGULARES
+//Es un patron de busqueda dentro de una cadena de texto (permite tambien el reemplazo). Existen metacaracteres que representan a todo un conjunto de caracteres
+
+const expresionRegular = /^\w{5,8}$/;
+//const expresionRegular = new RegExp("^\w{5,8}$") ;
+
+const string = "ejemplo"
+
+//Match -> es un metodo del string -> devuelve un array con todas las coincidencias
+console.log( string.match(expresionRegular) )
+//Test -> que es un metodo de la expReg -> devuelve un booleano
+console.log( expresionRegular.test(string) )
+</script>
+</body>
+</html>
+
+	

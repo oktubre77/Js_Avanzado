@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<style>
+		#barra{
+			height: 20px;
+			width: 100%;
+			background-color: orange;
+			color: white;
+			text-align: center;
+			transition: width 1.5s;
+		}
+	</style>
+</head>
+<body>
+	<div id="barra"></div>
+	<h1>Ejercicio</h1>
+	<p>Ejercicio: Crear un boton que al presionarlo busque un archivo de video a traves de AJAX. Con el archivo descargado generar un link que se haga click automaticamente y se habra en otra pestaña</p>
+
+	<button id="btn">Abrir Video</button>
+
+<script >
+	
+	document.querySelector("#btn").addEventListener("click", ev =>{
+		const xhr = new XMLHttpRequest();
+		xhr.responseType = "blob"
+		
+		const barra = document.querySelector("#barra")
+		xhr.addEventListener("progress", ev => {
+			const porc = Math.round( ev.loaded / ev.total *100 )+"%"
+
+			barra.style.width = porc
+			barra.innerText = porc 
+		})
+
+		xhr.addEventListener("load", ev => {
+			//console.log(ev.currentTarget.response)
+			const blob = ev.currentTarget.response;
+			const url = URL.createObjectURL(blob)
+
+			const a = document.createElement("a")
+			a.href = url 
+			a.target = "_blank"
+			a.click()
+		})
+
+		xhr.open("GET", "video-manuelita.mp4")
+		xhr.send()
+	})
+
+</script>
+</body>
+</html>

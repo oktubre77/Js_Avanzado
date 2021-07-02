@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>Ejercicio</h1>
+	<p>Ejercicio: Generar un objeto que no posea ningun prototipo. El cual tendra las propiedades:
+	 nombre -> no se podra borrar ni editar
+	 apellido -> no se podra borrar ni editar
+	 edad -> no se podra borrar
+
+Y los siguientes metodos:
+	saludar -> saluda por alerta / No se podra borrar, editar o iterar
+	firmar -> recibe un string como parametro y devuelve ese mismo string concatenando un guion medio y el valor de la prop nombre "string - Carlos" / No se podra borrar, editar o iterar</p>
+
+	<p>Generar un objeto llamado persona que posea estas propiedades de nombre, apellido, edad. Tendra el getter de nombre completo que sera la suma del nombre y el apellido. Tendra el setter de cambiarEdad que le sumara a la edad el valor ingreaso</p>
+<script>
+	const objeto = Object.create(null, {
+		nombre: {
+			value: "Juan",
+			configurable: false,
+			writable: false,
+			enumerable: true
+		},
+		apellido: {
+			value: "Dominguez",
+			configurable: false,
+			writable: false,
+			enumerable: true
+		},
+		edad: {
+			value: 30,
+			configurable: false,
+			writable: true,
+			enumerable: true
+		},
+
+		saludar: {
+			value: function (){
+				alert("Hola")
+			},
+			configurable: false,
+			writable: false,
+			enumerable: false
+		},
+		firmar: {
+			value: function (string){
+				return `${string} - ${this.nombre}`
+			},
+			configurable: false,
+			writable: false,
+			enumerable: false
+		}
+	})
+</script>
+</body>
+</html>

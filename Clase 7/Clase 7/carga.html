@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<style>
+		#dropZone{
+			height: 60vh;
+			width: 50vw;
+
+			background: #ddd;
+			border: dashed grey 2px;
+			border-radius: 4px;
+
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+	</style>
+</head>
+<body>
+	<h1>Subida de archivos</h1>
+
+	<div id="dropZone">
+		<label for="archivo">Seleccione el archivo</label>
+		<input type="file" name="archivo" multiple id="archivo">
+	</div>
+
+<script>
+	const input = document.querySelector("input")
+
+	input.addEventListener("change", ev => {
+		console.log("Haz seleccionado un archivo nuevo")
+		console.dir(ev.target.files)
+	})
+
+
+	const dropZone = document.querySelector("#dropZone")
+	/*
+	dropZone.addEventListener("dragenter", ev => {
+		ev.preventDefault()
+		console.log("dragenter")
+	})
+
+	dropZone.addEventListener("dragleave", ev => {
+		ev.preventDefault()
+		console.log("dragleave")
+	})
+	*/
+
+	dropZone.addEventListener("dragover", ev => {
+		ev.preventDefault()
+		//console.log("dragover")
+		ev.target.style.background = "lightblue"
+		//console.log(ev.dataTransfer.files)
+	})
+
+	dropZone.addEventListener("drop", ev => {
+		ev.preventDefault()
+		//console.log("drop")
+		ev.target.style.background = "lightgreen"
+		ev.dataTransfer.files
+		subirArchivos(ev.dataTransfer.files)
+	})
+
+
+	const subirArchivos = files => {
+		//console.log(files)
+		//Generar un objeto FormData
+		const formulario = new FormData;
+		//console.log(formulario)
+		//Con .append(clave, valor) agrego al formulario los datos a enviar
+		//formulario.append("nombre", "Carlos")
+
+		//Envia solo el primer archivo del array
+		//formulario.append("archivo", files[0])
+
+		//Envia multiples archivos
+		for (let i = 0 ; i < files.length ; i++){
+			const key = `archivo${i}`// archivo0 archivo1 archivo2
+			const value = files[i]// doc.txt  asd.jpg
+
+			formulario.append(key, value)//Multiples append
+			console.log("Append")
+		}
+
+		const peticion = new XMLHttpRequest();
+
+		peticion.addEventListener("load", ev => {
+			console.log("Carga finalizada")
+		})
+
+		peticion.open("POST", "recibir.php")
+		//peticion.open("POST", "https://profcristiantato.000webhostapp.com/recibir.php")
+		//Envio en el send() el objeto FormData
+		peticion.send(formulario)
+	}
+
+	/*
+	objetoFormulario = new FormData(document.querySelector("form"))
+
+	peticion.open("POST", "url.com")
+	peticion.send("?name=Carlos&apellido=Sanchez")
+	*/
+</script>
+</body>
+</html>
